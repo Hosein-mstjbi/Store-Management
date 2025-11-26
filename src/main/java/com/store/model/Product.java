@@ -7,17 +7,17 @@ package com.store.model;
  * price : قیمت واحد
  * quantity : موجودی انبار
  */
-public class product {
+public class Product {
     public Integer id;
     public String sku;
     public String name;
     public double price;
     public int quantity;
 
-    public product() {
+    public Product() {
     }
 
-    public product(Integer id, String sku, String name, double price, int quantity) {
+    public Product(Integer id, String sku, String name, double price, int quantity) {
         this.id = id;
         this.sku = sku;
         this.name = name;
