@@ -26,4 +26,23 @@ public class ProductDAO {
             statement.execute(query);
         }
     }
+
+    /**
+     * درج محصول جدید
+     */
+    public Product insert(Product product) throws SQLException {
+        String query = "INSERT INTO products(sku, name, price, quantity) VALUES (?,?,?,?) RETURNING id";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, product.sku);
+            preparedStatement.setString(2, product.name);
+            preparedStatement.setDouble(3, product.price);
+            preparedStatement.setInt(4, product.quantity);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                product.id = resultSet.getInt(1);
+            }
+            return product;
+        }
+    }
 }
