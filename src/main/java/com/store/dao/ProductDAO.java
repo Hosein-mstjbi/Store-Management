@@ -68,14 +68,26 @@ public class ProductDAO {
      */
     public Optional<Product> findById(int id) throws SQLException {
         String query = "SELECT id, sku, name, price, quantity FROM products WHERE id = ?";
-        try(Connection connection = DBConnection.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 return Optional.of(mapProduct(resultSet));
             }
             return Optional.empty();
+        }
+    }
+
+    /**
+     * بروز رسانی موجودی محصول
+     */
+    public void updateQuantity(int productId, int newQty, Connection conn) throws SQLException {
+        String query = "UPDATE products SET quantity = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setInt(1, newQty);
+            preparedStatement.setInt(2, productId);
+            preparedStatement.executeUpdate();
         }
     }
 
