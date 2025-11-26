@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * درسترسی به جدول products
+ * دسترسی به جدول products
  */
 public class ProductDAO {
 
     /**
      * ایجاد جداول مورد نیاز در صورتی که وجود نداشته باشند
      */
-    public void initTable() throws SQLException {
-        String query = "CRATE TABLE IF NOT EXISTS products (" +
+    public void initTables() throws SQLException {
+        String table = "CRATE TABLE IF NOT EXISTS products (" +
                 "id SERIAL PRIMARY KEY," +
                 "sku VARCHAR(50) UNIQUE NOT NULL," +
                 "name VARCHAR(200) NOT NULL," +
@@ -26,7 +26,7 @@ public class ProductDAO {
                 ")";
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()) {
-            statement.execute(query);
+            statement.execute(table);
         }
     }
 
@@ -108,7 +108,7 @@ public class ProductDAO {
             return out;
         }
     }
-    
+
     private Product mapProduct(ResultSet resultSet) throws SQLException {
         return new Product(resultSet.getInt("id"),
                 resultSet.getString("sku"),
