@@ -63,6 +63,22 @@ public class ProductDAO {
         }
     }
 
+    /**
+     * یافتن محصول بر اساس id
+     */
+    public Optional<Product> findById(int id) throws SQLException {
+        String query = "SELECT id, sku, name, price, quantity FROM products WHERE id = ?";
+        try(Connection connection = DBConnection.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return Optional.of(mapProduct(resultSet));
+            }
+            return Optional.empty();
+        }
+    }
+
     private Product mapProduct(ResultSet resultSet) throws SQLException {
         return new Product(resultSet.getInt("id"),
                 resultSet.getString("sku"),
