@@ -4,6 +4,8 @@ import com.store.db.DBConnection;
 import com.store.model.Product;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -91,6 +93,22 @@ public class ProductDAO {
         }
     }
 
+    /**
+     * لیست همه محصولات
+     */
+    public List<Product> listAll() throws SQLException {
+        String query = "SELECT * FROM products ORDER BY name";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Product> out = new ArrayList<>();
+            while (resultSet.next()) {
+                out.add(mapProduct(resultSet));
+            }
+            return out;
+        }
+    }
+    
     private Product mapProduct(ResultSet resultSet) throws SQLException {
         return new Product(resultSet.getInt("id"),
                 resultSet.getString("sku"),
