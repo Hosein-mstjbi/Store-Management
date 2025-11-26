@@ -4,6 +4,7 @@ import com.store.db.DBConnection;
 import com.store.model.Product;
 
 import java.sql.*;
+import java.util.Optional;
 
 /**
  * درسترسی به جدول products
@@ -44,5 +45,29 @@ public class ProductDAO {
             }
             return product;
         }
+    }
+
+    /**
+     * یافتن محصول بر اساس sku
+     */
+    public Optional<Product> findBySku(String sku) throws SQLException {
+        String query = "SELECT id, sku, name, price, quantity FROM products WHERE sku = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, sku);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return Optional.of(mapProduct(resultSet));
+            }
+            return Optional.empty();
+        }
+    }
+
+    private Product mapProduct(ResultSet resultSet) throws SQLException {
+        return new Product(resultSet.getInt("id"),
+                resultSet.getString("sku"),
+                resultSet.getString("name"),
+                resultSet.getDouble("price"),
+                resultSet.getInt("quarter"));
     }
 }
