@@ -20,4 +20,12 @@ public class StoreService {
         productDAO.initTables();
         invoiceDAO.initTables();
     }
+
+    /**
+     * ثبت محصول حدید
+     */
+    public Product addProduct(String sku, String name, double price, int qty) throws SQLException {
+        Product product = new Product(null, sku, name, price, qty);
+        return productDAO.insert(product);
+    }
 }
