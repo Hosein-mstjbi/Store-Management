@@ -85,4 +85,12 @@ public class StoreService {
             }
         }
     }
+
+    public List<Product> listProduct() throws SQLException {
+        return productDAO.listAll();
+    }
+
+    public Optional<Product> findBySku(String sku) throws SQLException {
+        return productDAO.findBySku(sku);
+    }
 }
