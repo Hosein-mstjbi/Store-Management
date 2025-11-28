@@ -1,9 +1,13 @@
 package com.store.ui;
 
+import com.store.model.InvoiceItem;
 import com.store.model.Product;
 import com.store.service.StoreService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -61,7 +65,32 @@ public class ConsoleUI {
 
     }
 
-    private void handleSell() {
+    private void handleSell() throws SQLException {
+        List<InvoiceItem> items = new ArrayList<>();
+        while (true) {
+            print("ProductId یا 'done' برای اتمام: ");
+            String s = input.nextLine().trim();
+            if (s.equalsIgnoreCase("done")) {
+                break;
+            }
+            int productId = Integer.parseInt(s);
+            print("Qty: ");
+            int qty = Integer.parseInt(input.nextLine().trim());
+            //برای ثبت قیمت واحد فعلی محصول را میگیریم
+            Optional<Product> opt = service.productDAO.findById(productId);
+            if (opt.isEmpty()) {
+                print("محصول پیدا نشد");
+                continue;
+            }
+            double unitPrice = opt.get().price;
+            items.add(new InvoiceItem(productId, qty, unitPrice));
+        }
+        if (items.isEmpty()) {
+            print("هیچ آیتمی اضافه نشد.");
+            return;
+        }
+        int invoiceId = service.sell(items);
+        print("فاکتور با شناسه " + invoiceId + " ساخته شد.");
     }
 
     private void handlePurchase() throws SQLException {

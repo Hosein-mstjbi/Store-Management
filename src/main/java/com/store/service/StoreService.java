@@ -15,7 +15,7 @@ import java.util.Optional;
  * منطق برنامه
  */
 public class StoreService {
-    private final ProductDAO productDAO = new ProductDAO();
+    public final ProductDAO productDAO = new ProductDAO();
     private final InvoiceDAO invoiceDAO = new InvoiceDAO();
 
     /**
