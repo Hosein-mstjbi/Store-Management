@@ -61,8 +61,12 @@ public class ConsoleUI {
 
     }
 
-    private void handleListProducts() {
-
+    private void handleListProducts() throws SQLException {
+        List<Product> all = service.listProduct();
+        print("--- لیست کالاها ---");
+        for (Product product : all) {
+            print(product.toString());
+        }
     }
 
     private void handleSell() throws SQLException {
