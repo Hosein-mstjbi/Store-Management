@@ -57,8 +57,12 @@ public class ConsoleUI {
         }
     }
 
-    private void handleInventory() {
-
+    private void handleInventory() throws SQLException {
+        List<Product> all = service.listProduct();
+        print("--- موجودی انبار ---");
+        for (Product product : all) {
+            print("[" + product.name + " : " + product.quantity + "]");
+        }
     }
 
     private void handleListProducts() throws SQLException {
