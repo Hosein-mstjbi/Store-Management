@@ -64,7 +64,13 @@ public class ConsoleUI {
     private void handleSell() {
     }
 
-    private void handlePurchase() {
+    private void handlePurchase() throws SQLException {
+        print("SKU: ");
+        String sku = input.nextLine().trim();
+        print("Add quantity: ");
+        int newQty = Integer.parseInt(input.nextLine().trim());
+        service.addInventory(sku, newQty);
+        print("موجودی بروزرسانی شد.");
     }
 
     private void handleAddProduct() throws SQLException {
