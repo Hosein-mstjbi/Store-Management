@@ -8,4 +8,8 @@ import java.util.Scanner;
  * مدیریت منو و تعامل با کاربر از طریق کنسول
  */
 public class ConsoleUI {
+
+    private void print(String message) {
+        System.out.println(message);
+    }
 }
