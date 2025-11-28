@@ -1,5 +1,6 @@
 package com.store.ui;
 
+import com.store.model.Product;
 import com.store.service.StoreService;
 
 import java.sql.SQLException;
@@ -46,6 +47,8 @@ public class ConsoleUI {
                 }
             } catch (NumberFormatException ex) {
                 System.out.println("ورودی عددی نامعتبر است.");
+            } catch (SQLException e) {
+                print("خطای دیتابیس : " + e.getMessage());
             }
         }
     }
@@ -64,8 +67,17 @@ public class ConsoleUI {
     private void handlePurchase() {
     }
 
-    private void handleAddProduct() {
-
+    private void handleAddProduct() throws SQLException {
+        print("SKU: ");
+        String sku = input.nextLine().trim();
+        print("Name: ");
+        String name = input.nextLine().trim();
+        print("Price: ");
+        double price = Double.parseDouble(input.nextLine().trim());
+        print("Initial quantity: ");
+        int qty = Integer.parseInt(input.nextLine().trim());
+        Product product = service.addProduct(sku, name, price, qty);
+        print("محصول ثبت شده : " + product);
     }
 
     private void showMenu() {
