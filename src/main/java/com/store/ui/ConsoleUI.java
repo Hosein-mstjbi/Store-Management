@@ -2,12 +2,71 @@ package com.store.ui;
 
 import com.store.service.StoreService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
  * مدیریت منو و تعامل با کاربر از طریق کنسول
  */
 public class ConsoleUI {
+    private final Scanner input = new Scanner(System.in);
+    private final StoreService service = new StoreService();
+
+    public void start() {
+        try {
+            service.init();
+        } catch (SQLException e) {
+            print("خطا در اتصال یا مقدار دهی اولیه دیتابی : " + e.getMessage());
+        }
+
+        while (true) {
+            showMenu();
+            String choice = input.nextLine().trim();
+            try {
+                switch (choice) {
+                    case "1":
+                        handleAddProduct();
+                        break;
+                    case "2":
+                        handlePurchase();
+                        break;
+                    case "3":
+                        handleSell();
+                    case "4":
+                        handleListProducts();
+                        break;
+                    case "5":
+                        handleInventory();
+                        break;
+                    case "0":
+                        print("خدانگهـــــــــدار!");
+                        return;
+                    default:
+                        print("گزینه نامعتبر. دوباره تلاش کنید.");
+                }
+            } catch (NumberFormatException ex) {
+                System.out.println("ورودی عددی نامعتبر است.");
+            }
+        }
+    }
+
+    private void handleInventory() {
+
+    }
+
+    private void handleListProducts() {
+
+    }
+
+    private void handleSell() {
+    }
+
+    private void handlePurchase() {
+    }
+
+    private void handleAddProduct() {
+
+    }
 
     private void showMenu() {
         print("\n === سیستم مدیریت فروشگاه مواد غذایی ===");
