@@ -67,14 +67,27 @@ public class ConsoleUI {
 
     private void handleListProducts() throws SQLException {
         List<Product> all = service.listProduct();
-        print("--- لیست کالاها ---");
-        for (Product product : all) {
-            print(product.toString());
+        if (all.isEmpty()) {
+            print("محصولی وجود ندارد.");
+        } else {
+            print("--- لیست کالاها ---");
+            for (Product product : all) {
+                print(product.toString());
+            }
         }
     }
 
     private void handleSell() throws SQLException {
         List<InvoiceItem> items = new ArrayList<>();
+        List<Product> all = service.listProduct();
+        if (all.isEmpty()) {
+            print("محصولی وجود ندارد.");
+        } else {
+            print("--- لیست کالاها ---");
+            for (Product product : all) {
+                print("[" + product.id + " : " + product.name + "] ");
+            }
+        }
         while (true) {
             print("ProductId یا 'done' برای اتمام: ");
             String s = input.nextLine().trim();

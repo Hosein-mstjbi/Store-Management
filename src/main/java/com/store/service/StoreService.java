@@ -40,7 +40,7 @@ public class StoreService {
     public void addInventory(String sku, int addQty) throws SQLException {
         try (Connection connection = DBConnection.getConnection()) {
             Optional<Product> optional = productDAO.findBySku(sku);
-            if (optional.isPresent()) {
+            if (optional.isEmpty()) {
                 throw new SQLException("Product not found");
             }
             Product p = optional.get();

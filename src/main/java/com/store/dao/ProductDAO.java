@@ -114,6 +114,6 @@ public class ProductDAO {
                 resultSet.getString("sku"),
                 resultSet.getString("name"),
                 resultSet.getDouble("price"),
-                resultSet.getInt("quarter"));
+                resultSet.getInt("quantity"));
     }
 }
