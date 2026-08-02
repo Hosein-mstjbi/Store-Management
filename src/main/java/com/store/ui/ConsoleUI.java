@@ -21,7 +21,7 @@ public class ConsoleUI {
         try {
             service.init();
         } catch (SQLException e) {
-            print("خطا در اتصال یا مقدار دهی اولیه دیتابی : " + e.getMessage());
+            print("خطا در اتصال یا مقدار دهی اولیه دیتابیس : " + e.getMessage());
         }
 
         while (true) {

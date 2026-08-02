@@ -17,7 +17,7 @@ public class ProductDAO {
      * ایجاد جداول مورد نیاز در صورتی که وجود نداشته باشند
      */
     public void initTables() throws SQLException {
-        String table = "CRATE TABLE IF NOT EXISTS products (" +
+        String table = "CREATE TABLE IF NOT EXISTS products (" +
                 "id SERIAL PRIMARY KEY," +
                 "sku VARCHAR(50) UNIQUE NOT NULL," +
                 "name VARCHAR(200) NOT NULL," +
